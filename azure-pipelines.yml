@@ -19,5 +19,5 @@ steps:
     options: '-e'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
-    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageToolOption: 'Cobertura'
     goals: 'package'
