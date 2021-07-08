@@ -11,8 +11,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
+import com.test.demo.constants.Messages;
 import com.test.demo.dtos.ProductDto;
 import com.test.demo.model.Product;
 import com.test.demo.repository.ProductRepository;
@@ -57,6 +60,19 @@ public class ProductServiceTest {
         Assertions.assertNotNull(response, "No product found");
     }
     
+    @Test
+    @DisplayName("Test getById Invalid")
+    void testGetByIdInvalid() {
+    	when(repository.findById("1")).thenReturn(null);
+
+        // Execute the service call
+        var exception = assertThrows(RuntimeException.class, () -> {
+            service.getProduct("1");
+            });
+        // Assert the response
+        Assertions.assertTrue(exception.getMessage() == Messages.PRODUCT_NOT_FOUND);
+    }
+    
   
     @Test
     @DisplayName("Test addProduct Success")
@@ -96,8 +112,20 @@ public class ProductServiceTest {
     @DisplayName("Test deleteById Success")
     void testDeleteById() {   
         // Execute the service call
+    	var product =  Optional.of(new Product("1", "title", "desc","image" ,"20"));
+    	when(repository.findById("1")).thenReturn(product);
         var response = service.deleteProduct("1");
         // Assert the response
         Assertions.assertTrue(response, "No product found");
+    }
+    
+    @Test
+    @DisplayName("Test deleteById Invalid")
+    void testDeleteByIdInvalid() {   
+    	when(repository.findById("1")).thenReturn(null);
+        // Execute the service call
+        var exception = assertThrows(RuntimeException.class, () -> service.deleteProduct("1"));
+        // Assert the response
+        Assertions.assertEquals(exception.getMessage(), Messages.PRODUCT_NOT_FOUND);
     }
 }

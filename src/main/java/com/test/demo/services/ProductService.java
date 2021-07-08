@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.test.demo.constants.Messages;
 import com.test.demo.dtos.ProductDto;
 import com.test.demo.model.Product;
 import com.test.demo.repository.ProductRepository;
@@ -21,8 +23,9 @@ public class ProductService{
 		return products.stream().map(this::mapToDto).collect(Collectors.toList());		
 	}
 
-	public ProductDto getProduct(String id) {
+	public ProductDto getProduct(String id){
 		var product = repository.findById(id);
+		if(product == null) { throw new RuntimeException(Messages.PRODUCT_NOT_FOUND);}
 		return mapToDto(product.get());
 	}
 
@@ -34,7 +37,7 @@ public class ProductService{
 	}
 
 	
-	public ProductDto updateProduct(ProductDto product) {
+	public ProductDto updateProduct(ProductDto product) {		
 		var productToUpdate = mapToModel(product);
 		var newProduct = repository.save(productToUpdate);	
 		return mapToDto(newProduct);	
@@ -42,6 +45,8 @@ public class ProductService{
 
 	
 	public boolean deleteProduct(String id) {
+		if(repository.findById(id) == null)
+		{throw new RuntimeException(Messages.PRODUCT_NOT_FOUND);}
 		repository.deleteById(id);
 		return true;
 	}
