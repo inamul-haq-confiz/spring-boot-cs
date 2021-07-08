@@ -19,7 +19,7 @@ steps:
     options: '-e'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
-    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageToolOption: 'Cobertura'
     sonarQubeRunAnalysis: true
     sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
