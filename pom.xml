@@ -77,13 +77,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
-		<dependency>
-    <groupId>net.sourceforge.cobertura</groupId>
-    <artifactId>cobertura</artifactId>
-    <version>2.1.1</version>
-    <scope>test</scope>
-</dependency>
+		</dependency>		
 	</dependencies>
 	<build>
 		<plugins>
@@ -105,18 +99,7 @@
 				<configuration>
                     <release>11</release>
 				</configuration>
-			</plugin>	
-			<plugin>
-			 <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-            <formats>
-                <format>html</format>
-                <format>xml</format>
-            </formats>
-        </configuration>
-    </plugin>		
+			</plugin>				
 		</plugins>
 	</build>
 
