@@ -20,6 +20,6 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     codeCoverageToolOption: 'Cobertura'
-    sonarQubeRunAnalysis: true
-    sqMavenPluginVersionChoice: 'latest'
+    #sonarQubeRunAnalysis: true
+    #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
