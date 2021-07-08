@@ -15,7 +15,11 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
     options: '-e'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
+    codeCoverageToolOption: 'JaCoCo'
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
