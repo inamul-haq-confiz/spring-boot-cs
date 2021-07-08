@@ -10,6 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud Service'
+    organization: 'inamulhaq0147'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=inamulhaq0147_spring-boot-cs
+      sonar.projectName=spring-boot-cs
 - task: Maven@3 
   inputs:
     mavenPomFile: 'pom.xml'
@@ -23,3 +34,4 @@ steps:
     #sonarQubeRunAnalysis: true
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
+- task: SonarCloudAnalyze@1
