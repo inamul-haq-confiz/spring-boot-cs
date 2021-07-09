@@ -9,20 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserDto {
+public class CredentialsDto {
 
-	public UserDto(String username, String password, String token, String fullName) {
+	public CredentialsDto(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.token = token;
-		this.fullName = fullName;
 	}
 	@NotNull(message = "Username can't be blank")
 	@Email(message = "Email should be in correct format")
 	private String username;
 	@NotNull(message = "Password can't be blank")
 	private String password;
-	private String fullName;
-	private String token;
 	
 }

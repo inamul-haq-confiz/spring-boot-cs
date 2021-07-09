@@ -29,7 +29,7 @@ public class ProductsController {
 		return productService.getAllProducts();
 	}
 	@GetMapping("/{id}")
-    @ApiOperation(authorizations = {@Authorization(value = "jwtToken")}, value = "Get product by Id")
+    @ApiOperation(authorizations = {@Authorization(value = "jwtToken") }, value = "Get product by Id")
 	public ProductDto get(@PathVariable String id)
 	{
 		return productService.getProduct(id);		
