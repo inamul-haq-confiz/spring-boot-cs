@@ -6,61 +6,75 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import javax.security.auth.login.CredentialNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.test.demo.constants.Messages;
-import com.test.demo.dtos.ProductDto;
-import com.test.demo.dtos.UserDto;
-import com.test.demo.exceptions.UserAlreadyExistsException;
-import com.test.demo.model.Product;
 import com.test.demo.model.User;
-import com.test.demo.repository.ProductRepository;
-import com.test.demo.repository.UserRepository;
 
 @SpringBootTest
 public class AuthenticationServiceTests {
    
     @Autowired
-    private AccountsService service;
+    private AuthenticationService authService;
     @MockBean
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @MockBean
-    private UserRepository repository;   
+    private UserDetailsService userDetailsService;   
    
     
     @Test
-    @DisplayName("Test register Success")
-    void testRegister() {
-    	var user =  new UserDto("username", "password", "fullname");
-    	when(repository.findByUsername(any())).thenReturn(null);
-    	when(bCryptPasswordEncoder.encode(any())).thenReturn(any());
+    @DisplayName("Test authenticate Success")
+    void testAuthenticate() throws CredentialNotFoundException {
+    	var validUser =  new User("1","fullname","username","testpass");
+    	var userDetails = org.springframework.security.core.userdetails.User.withUsername("username").password("testpass").authorities("testuser").build();
+    	when(userDetailsService.loadUserByUsername(any())).thenReturn(userDetails);
+    	when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(true);
     	
         // Execute the service call
-        var response = service.register(user);
+        var response = authService.authenticate(validUser.getUsername(),validUser.getPassword());
         
         // Assert the response
-        Assertions.assertTrue(response);
+        Assertions.assertNotNull(response);
+        Assertions.assertNotNull(response.getToken());
     }    
     
     @Test
-    @DisplayName("Test register Duplicate User")
-    void testRegisterDuplicateUser() {
-    	var user =  new UserDto("username", "password", "fullname");
-    	var savedUser = new User("id","username", "password", "fullname");
-    	when(repository.findByUsername(any())).thenReturn(savedUser);
+    @DisplayName("Test authenticate Invalid User")
+    void testAuthenticateInvalidUser() throws CredentialNotFoundException {
+    	var user =  new User("1","fullname","username","testpass");
+    	when(userDetailsService.loadUserByUsername(any())).thenReturn(null);
     	
         // Execute the service call
-    	 var exception = assertThrows(UserAlreadyExistsException.class, () -> service.register(user));
-         
+        var exception = assertThrows(UsernameNotFoundException.class, () ->  authService.authenticate(user.getUsername(),user.getPassword()));
+        
         // Assert the response
-         Assertions.assertEquals(exception.getMessage(), Messages.USERNAME_ALREADY_TAKEN);
-    }
+        Assertions.assertEquals(exception.getClass(), UsernameNotFoundException.class);
+        Assertions.assertTrue(exception.getMessage().contains(Messages.USERNAME_NOT_FOUND));
+    }    
+    @Test
+    @DisplayName("Test authenticate Invalid Credentials")
+    void testAuthenticateInvalidCredentials() throws CredentialNotFoundException {
+    	var user =  new User("1","fullname","username","testpass");
+    	var userDetails = org.springframework.security.core.userdetails.User.withUsername("username").password("testpass").authorities("testuser").build();
+    	when(userDetailsService.loadUserByUsername(any())).thenReturn(userDetails);
+    	when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(false);
+    	
+        // Execute the service call
+        var exception = assertThrows(CredentialNotFoundException.class, () ->  authService.authenticate(user.getUsername(),user.getPassword()));
+        
+        // Assert the response
+        Assertions.assertEquals(exception.getClass(), CredentialNotFoundException.class);
+        Assertions.assertTrue(exception.getMessage().contains(Messages.CREDENTIALS_DIDN_T_MATCH));
+    }   
+    
+
 }

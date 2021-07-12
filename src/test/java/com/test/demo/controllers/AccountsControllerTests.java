@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.mockito.Mockito.when;
@@ -22,7 +21,6 @@ import com.test.demo.constants.Messages;
 import com.test.demo.controller.AccountsController;
 import com.test.demo.dtos.TokenDto;
 import com.test.demo.dtos.UserDto;
-import com.test.demo.dtos.response.ResponseDto;
 import com.test.demo.exceptions.UserAlreadyExistsException;
 import com.test.demo.services.AccountsService;
 import com.test.demo.services.AuthenticationService;

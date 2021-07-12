@@ -10,19 +10,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.test.demo.constants.Messages;
-import com.test.demo.dtos.ProductDto;
 import com.test.demo.dtos.UserDto;
 import com.test.demo.exceptions.UserAlreadyExistsException;
-import com.test.demo.model.Product;
 import com.test.demo.model.User;
-import com.test.demo.repository.ProductRepository;
 import com.test.demo.repository.UserRepository;
 
 @SpringBootTest
