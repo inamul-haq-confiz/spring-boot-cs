@@ -10,16 +10,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
-import com.test.demo.constants.Messages;
 import com.test.demo.controller.ProductsController;
 import com.test.demo.dtos.ProductDto;
-import com.test.demo.model.Product;
-import com.test.demo.repository.ProductRepository;
 import com.test.demo.services.ProductService;
 
 @SpringBootTest
@@ -46,6 +40,7 @@ public class ProductControllerTest {
         var response = controller.get();
 
         // Assert the response
+
         Assertions.assertTrue(response.size() > 0, "No product found");
     }
     

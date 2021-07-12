@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.test.demo.dtos.ProductDto;
-import com.test.demo.dtos.response.ResponseDto;
 import com.test.demo.services.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;

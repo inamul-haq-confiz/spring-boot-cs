@@ -11,10 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDto {
 
-	public UserDto(String username, String password, String token, String fullName) {
+	public UserDto(String username, String password, String fullName) {
 		this.username = username;
 		this.password = password;
-		this.token = token;
 		this.fullName = fullName;
 	}
 	@NotNull(message = "Username can't be blank")
@@ -22,7 +21,5 @@ public class UserDto {
 	private String username;
 	@NotNull(message = "Password can't be blank")
 	private String password;
-	private String fullName;
-	private String token;
-	
+	private String fullName;	
 }

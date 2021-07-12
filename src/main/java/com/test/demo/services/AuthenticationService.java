@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.security.auth.login.CredentialNotFoundException;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,15 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.test.demo.constants.Messages;
-import com.test.demo.dtos.ProductDto;
 import com.test.demo.dtos.TokenDto;
-import com.test.demo.dtos.UserDto;
-import com.test.demo.model.Product;
-import com.test.demo.model.User;
-import com.test.demo.repository.ProductRepository;
-import com.test.demo.repository.UserRepository;
-
-import ch.qos.logback.core.subst.Token;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -32,19 +23,18 @@ public class AuthenticationService{
 
 	@Autowired
 	private UserDetailsService service;
-	@Autowired
-	private ModelMapper mapper;
+
 	@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public TokenDto authenticate(String username, String password) throws CredentialNotFoundException{
 		var user = service.loadUserByUsername(username);
 		if (user == null) {
-            throw new UsernameNotFoundException("Username doesn't exist.");
+            throw new UsernameNotFoundException(Messages.USERNAME_NOT_FOUND);
         }
 		if(!bCryptPasswordEncoder.matches(password, user.getPassword()))
 		{
-            throw new CredentialNotFoundException("Credentials didn't match.");
+            throw new CredentialNotFoundException(Messages.CREDENTIALS_DIDN_T_MATCH);
 		}
 		return getJWTToken(user.getUsername());
 	}
@@ -70,36 +60,4 @@ public class AuthenticationService{
 
 		return new TokenDto(token,issuedAt, expireAt);
 	}
-//
-//	
-//	public ProductDto addProduct(ProductDto product) {		
-//		var productToInsert = mapToModel(product);
-//		var newProduct = repository.save(productToInsert);		
-//		return mapToDto(newProduct);
-//	}
-//
-//	
-//	public ProductDto updateProduct(ProductDto product) {		
-//		var productToUpdate = mapToModel(product);
-//		var newProduct = repository.save(productToUpdate);	
-//		return mapToDto(newProduct);	
-//		}
-//
-//	
-//	public boolean deleteProduct(String id) {
-//		if(repository.findById(id) == null)
-//		{throw new RuntimeException(Messages.PRODUCT_NOT_FOUND);}
-//		repository.deleteById(id);
-//		return true;
-//	}
-	
-	private UserDto mapToDto(User user)
-	{
-		return mapper.map(user, UserDto.class);
-	}
-	private User mapToModel(UserDto user)
-	{
-		return mapper.map(user, User.class);
-	}
-
 }
