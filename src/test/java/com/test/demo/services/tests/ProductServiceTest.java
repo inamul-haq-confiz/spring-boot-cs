@@ -1,4 +1,4 @@
-package com.test.demo.services;
+package com.test.demo.services.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +19,7 @@ import com.test.demo.constants.Messages;
 import com.test.demo.dtos.ProductDto;
 import com.test.demo.model.Product;
 import com.test.demo.repository.ProductRepository;
+import com.test.demo.services.ProductService;
 
 @SpringBootTest
 public class ProductServiceTest {

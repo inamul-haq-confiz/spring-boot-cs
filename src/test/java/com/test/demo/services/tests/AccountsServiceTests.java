@@ -1,4 +1,4 @@
-package com.test.demo.services;
+package com.test.demo.services.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +18,7 @@ import com.test.demo.dtos.UserDto;
 import com.test.demo.exceptions.UserAlreadyExistsException;
 import com.test.demo.model.User;
 import com.test.demo.repository.UserRepository;
+import com.test.demo.services.AccountsService;
 
 @SpringBootTest
 public class AccountsServiceTests {

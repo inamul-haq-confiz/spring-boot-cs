@@ -1,4 +1,4 @@
-package com.test.demo.services;
+package com.test.demo.services.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import com.test.demo.constants.Messages;
 import com.test.demo.model.User;
+import com.test.demo.services.AuthenticationService;
 
 @SpringBootTest
 public class AuthenticationServiceTests {

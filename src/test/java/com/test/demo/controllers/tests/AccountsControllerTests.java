@@ -1,4 +1,4 @@
-package com.test.demo.controllers;
+package com.test.demo.controllers.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

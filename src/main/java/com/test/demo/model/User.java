@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class User {
-	public User(String id, String fullName, String username, String password) {
+	public User(String id, String username, String password, String fullName) {
 		this.id = id;
 		this.fullName = fullName;
 		this.username = username;
