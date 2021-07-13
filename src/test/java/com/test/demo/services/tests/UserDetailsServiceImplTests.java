@@ -8,19 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import static org.mockito.Mockito.when;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
-import com.test.demo.constants.Messages;
-import com.test.demo.dtos.UserDto;
-import com.test.demo.exceptions.UserAlreadyExistsException;
 import com.test.demo.model.User;
 import com.test.demo.repository.UserRepository;
-import com.test.demo.services.AccountsService;
 
 @SpringBootTest
 public class UserDetailsServiceImplTests {
