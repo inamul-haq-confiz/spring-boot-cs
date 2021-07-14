@@ -51,7 +51,7 @@ class AccountsControllerTests {
 
         Assertions.assertNotNull(response, "No user found");
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(response.getBody().getStatusCode(), HttpStatus.OK.toString());
+        Assertions.assertEquals(HttpStatus.OK.toString(), response.getBody().getStatusCode());
 
     }
     
@@ -68,8 +68,8 @@ class AccountsControllerTests {
         // Assert the response
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(response.getBody().getStatusCode(), HttpStatus.CREATED.toString());
-        Assertions.assertEquals(response.getBody().getMessage(), Messages.USER_REGISTERED_SUCCESSFULLY);
+        Assertions.assertEquals(HttpStatus.CREATED.toString(), response.getBody().getStatusCode());
+        Assertions.assertEquals(Messages.USER_REGISTERED_SUCCESSFULLY, response.getBody().getMessage());
     }    
     
     @Test
@@ -81,7 +81,7 @@ class AccountsControllerTests {
         // Execute the service call
 
         var exception = assertThrows(UserAlreadyExistsException.class, ()->  controller.register(user));      
-        Assertions.assertEquals(exception.getMessage(), Messages.USERNAME_ALREADY_TAKEN);
+        Assertions.assertEquals(Messages.USERNAME_ALREADY_TAKEN, exception.getMessage());
     }   
     
     @Test
@@ -91,7 +91,7 @@ class AccountsControllerTests {
     	when(authService.authenticate(any(),any())).thenThrow(new UsernameNotFoundException(Messages.USERNAME_NOT_FOUND));
         // Execute the service call
         var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login("username","password"));      
-        Assertions.assertEquals(exception.getMessage(), Messages.USERNAME_NOT_FOUND);
+        Assertions.assertEquals(Messages.USERNAME_NOT_FOUND, exception.getMessage());
     } 
     @Test
     @DisplayName("Test login Invalid Credentials")
@@ -100,6 +100,6 @@ class AccountsControllerTests {
     	when(authService.authenticate(any(),any())).thenThrow(new UsernameNotFoundException(Messages.CREDENTIALS_DIDN_T_MATCH));
         // Execute the service call
         var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login("username","password"));      
-        Assertions.assertEquals(exception.getMessage(), Messages.CREDENTIALS_DIDN_T_MATCH);
+        Assertions.assertEquals(Messages.CREDENTIALS_DIDN_T_MATCH, exception.getMessage());
     }
 }
