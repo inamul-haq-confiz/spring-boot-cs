@@ -65,12 +65,10 @@ public class ProductServiceTest {
     @Test
     @DisplayName("Test getById Invalid")
     void testGetByIdInvalid() {
-    	when(repository.findById("1")).thenReturn(null);
+    	when(repository.findById("1")).thenReturn(Optional.empty());
 
         // Execute the service call
-        var exception = assertThrows(ItemNotFoundException.class, () -> {
-            service.getProduct("1");
-            });
+        var exception = assertThrows(ItemNotFoundException.class, () -> service.getProduct("1"));
         // Assert the response
         Assertions.assertTrue(exception.getMessage() == Messages.PRODUCT_NOT_FOUND);
     }
@@ -114,7 +112,6 @@ public class ProductServiceTest {
     @DisplayName("Test deleteById Success")
     void testDeleteById() {   
         // Execute the service call
-    	//var product =  Optional.of(new Product("1", "title", "desc","image" ,"20"));
     	when(repository.existsById("1")).thenReturn(true);
         var response = service.deleteProduct("1");
         // Assert the response
@@ -126,7 +123,7 @@ public class ProductServiceTest {
     void testDeleteByIdInvalid() {   
     	when(repository.existsById("1")).thenReturn(false);
         // Execute the service call
-        var exception = assertThrows(RuntimeException.class, () -> service.deleteProduct("1"));
+        var exception = assertThrows(ItemNotFoundException.class, () -> service.deleteProduct("1"));
         // Assert the response
         Assertions.assertEquals(exception.getMessage(), Messages.PRODUCT_NOT_FOUND);
     }

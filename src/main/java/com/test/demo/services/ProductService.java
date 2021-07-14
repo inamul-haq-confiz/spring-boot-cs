@@ -22,7 +22,7 @@ public class ProductService extends BaseService{
 
 	public ProductDto getProduct(String id){
 		var product = repository.findById(id);
-		if(product == null) { throw new ItemNotFoundException(Messages.PRODUCT_NOT_FOUND);}
+		if(!product.isPresent()) { throw new ItemNotFoundException(Messages.PRODUCT_NOT_FOUND);}
 		return mapTo(product.get(), ProductDto.class);
 	}
 
