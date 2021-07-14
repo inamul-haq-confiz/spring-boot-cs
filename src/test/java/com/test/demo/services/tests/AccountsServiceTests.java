@@ -21,7 +21,7 @@ import com.test.demo.repository.UserRepository;
 import com.test.demo.services.AccountsService;
 
 @SpringBootTest
-public class AccountsServiceTests {
+class AccountsServiceTests {
    
     @Autowired
     private AccountsService service;
@@ -56,6 +56,6 @@ public class AccountsServiceTests {
     	 var exception = assertThrows(UserAlreadyExistsException.class, () -> service.register(user));
          
         // Assert the response
-         Assertions.assertEquals(exception.getMessage(), Messages.USERNAME_ALREADY_TAKEN);
+         Assertions.assertEquals(Messages.USERNAME_ALREADY_TAKEN, exception.getMessage());
     }
 }

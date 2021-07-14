@@ -17,7 +17,7 @@ import com.test.demo.dtos.ProductDto;
 import com.test.demo.services.ProductService;
 
 @SpringBootTest
-public class ProductControllerTest {
+class ProductControllerTest {
    
 	@MockBean
     private ProductService service;

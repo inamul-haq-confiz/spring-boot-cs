@@ -22,7 +22,7 @@ import com.test.demo.model.User;
 import com.test.demo.services.AuthenticationService;
 
 @SpringBootTest
-public class AuthenticationServiceTests {
+class AuthenticationServiceTests {
    
     @Autowired
     private AuthenticationService authService;
@@ -51,11 +51,10 @@ public class AuthenticationServiceTests {
     @Test
     @DisplayName("Test authenticate Invalid User")
     void testAuthenticateInvalidUser() throws CredentialNotFoundException {
-    	var user =  new User("1","fullname","username","testpass");
     	when(userDetailsService.loadUserByUsername(any())).thenReturn(null);
     	
         // Execute the service call
-        var exception = assertThrows(UsernameNotFoundException.class, () ->  authService.authenticate(user.getUsername(),user.getPassword()));
+        var exception = assertThrows(UsernameNotFoundException.class, () ->  authService.authenticate("inam@confiz.com","password"));
         
         // Assert the response
         Assertions.assertEquals(exception.getClass(), UsernameNotFoundException.class);
@@ -64,8 +63,8 @@ public class AuthenticationServiceTests {
     @Test
     @DisplayName("Test authenticate Invalid Credentials")
     void testAuthenticateInvalidCredentials() throws CredentialNotFoundException {
-    	var user =  new User("1","fullname","username","testpass");
-    	var userDetails = org.springframework.security.core.userdetails.User.withUsername("username").password("testpass").authorities("testuser").build();
+    	var user =  new User("1","fullname","inam@confiz.com","testpass");
+    	var userDetails = org.springframework.security.core.userdetails.User.withUsername("inam@confiz.com").password("testpass").authorities("testuser").build();
     	when(userDetailsService.loadUserByUsername(any())).thenReturn(userDetails);
     	when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(false);
     	
@@ -73,7 +72,7 @@ public class AuthenticationServiceTests {
         var exception = assertThrows(CredentialNotFoundException.class, () ->  authService.authenticate(user.getUsername(),user.getPassword()));
         
         // Assert the response
-        Assertions.assertEquals(exception.getClass(), CredentialNotFoundException.class);
+        Assertions.assertEquals(CredentialNotFoundException.class, exception.getClass());
         Assertions.assertTrue(exception.getMessage().contains(Messages.CREDENTIALS_DIDN_T_MATCH));
     }   
     

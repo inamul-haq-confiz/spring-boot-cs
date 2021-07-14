@@ -108,7 +108,16 @@
 				<configuration>
 					<release>11</release>
 				</configuration>
-			</plugin>		
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>com/test/demo/config/JWTAuthorizationFilter.class</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

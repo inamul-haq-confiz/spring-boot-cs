@@ -39,7 +39,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-			return;
 		}
 	}	
 
@@ -65,9 +64,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private boolean checkJWTToken(HttpServletRequest request) {
 		String authenticationHeader = request.getHeader(AppConstants.HEADER);
-		if (authenticationHeader == null || !authenticationHeader.startsWith(AppConstants.PREFIX))
-			return false;
-		return true;
+		return (authenticationHeader == null || !authenticationHeader.startsWith(AppConstants.PREFIX)) ?  false: true;
 	}
 
 }

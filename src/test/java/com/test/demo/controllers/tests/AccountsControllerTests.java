@@ -26,7 +26,7 @@ import com.test.demo.services.AccountsService;
 import com.test.demo.services.AuthenticationService;
 
 @SpringBootTest
-public class AccountsControllerTests {
+class AccountsControllerTests {
    
 	@MockBean
     private AuthenticationService authService;	
@@ -90,7 +90,7 @@ public class AccountsControllerTests {
     	
     	when(authService.authenticate(any(),any())).thenThrow(new UsernameNotFoundException(Messages.USERNAME_NOT_FOUND));
         // Execute the service call
-        var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login(any(),any()));      
+        var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login("username","password"));      
         Assertions.assertEquals(exception.getMessage(), Messages.USERNAME_NOT_FOUND);
     } 
     @Test
@@ -99,7 +99,7 @@ public class AccountsControllerTests {
     	
     	when(authService.authenticate(any(),any())).thenThrow(new UsernameNotFoundException(Messages.CREDENTIALS_DIDN_T_MATCH));
         // Execute the service call
-        var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login(any(),any()));      
+        var exception = assertThrows(UsernameNotFoundException.class, ()->  controller.login("username","password"));      
         Assertions.assertEquals(exception.getMessage(), Messages.CREDENTIALS_DIDN_T_MATCH);
     }
 }

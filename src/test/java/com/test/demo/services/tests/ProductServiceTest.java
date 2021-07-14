@@ -23,7 +23,7 @@ import com.test.demo.repository.ProductRepository;
 import com.test.demo.services.ProductService;
 
 @SpringBootTest
-public class ProductServiceTest {
+class ProductServiceTest {
    
     @Autowired
     private ProductService service;
@@ -70,7 +70,7 @@ public class ProductServiceTest {
         // Execute the service call
         var exception = assertThrows(ItemNotFoundException.class, () -> service.getProduct("1"));
         // Assert the response
-        Assertions.assertTrue(exception.getMessage() == Messages.PRODUCT_NOT_FOUND);
+        Assertions.assertEquals(Messages.PRODUCT_NOT_FOUND, exception.getMessage());
     }
     
   
@@ -88,7 +88,7 @@ public class ProductServiceTest {
 
         // Assert the response
         Assertions.assertNotNull(response, "Unable to insert Product");
-        Assertions.assertEquals(response.getId(), "1");
+        Assertions.assertEquals("1", response.getId());
 
     }
     @Test
@@ -105,7 +105,7 @@ public class ProductServiceTest {
 
         // Assert the response
         Assertions.assertNotNull(response, "Unable to update Product");
-        Assertions.assertEquals(response.getId(), "1");
+        Assertions.assertEquals("1", response.getId());
     }
     
     @Test
@@ -125,6 +125,6 @@ public class ProductServiceTest {
         // Execute the service call
         var exception = assertThrows(ItemNotFoundException.class, () -> service.deleteProduct("1"));
         // Assert the response
-        Assertions.assertEquals(exception.getMessage(), Messages.PRODUCT_NOT_FOUND);
+        Assertions.assertEquals(Messages.PRODUCT_NOT_FOUND, exception.getMessage());
     }
 }

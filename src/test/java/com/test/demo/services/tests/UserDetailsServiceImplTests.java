@@ -17,7 +17,7 @@ import com.test.demo.model.User;
 import com.test.demo.repository.UserRepository;
 
 @SpringBootTest
-public class UserDetailsServiceImplTests {
+class UserDetailsServiceImplTests {
    
     @Autowired
     private UserDetailsService service;
