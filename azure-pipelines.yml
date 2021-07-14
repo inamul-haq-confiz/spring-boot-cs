@@ -37,4 +37,4 @@ steps:
     #sonarQubeRunAnalysis: true
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
-- task: SonarCloudAnalyze@1
+#- task: SonarCloudAnalyze@1

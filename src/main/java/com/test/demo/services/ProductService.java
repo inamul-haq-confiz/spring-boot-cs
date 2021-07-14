@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.test.demo.constants.Messages;
 import com.test.demo.dtos.ProductDto;
+import com.test.demo.exceptions.ItemNotFoundException;
 import com.test.demo.model.Product;
 import com.test.demo.repository.ProductRepository;
 
@@ -21,7 +22,7 @@ public class ProductService extends BaseService{
 
 	public ProductDto getProduct(String id){
 		var product = repository.findById(id);
-		if(product == null) { throw new RuntimeException(Messages.PRODUCT_NOT_FOUND);}
+		if(product == null) { throw new ItemNotFoundException(Messages.PRODUCT_NOT_FOUND);}
 		return mapTo(product.get(), ProductDto.class);
 	}
 
@@ -41,8 +42,8 @@ public class ProductService extends BaseService{
 
 	
 	public boolean deleteProduct(String id) {
-		if(repository.findById(id) == null)
-		{throw new RuntimeException(Messages.PRODUCT_NOT_FOUND);}
+		if(!repository.existsById(id))
+		{throw new ItemNotFoundException(Messages.PRODUCT_NOT_FOUND);}
 		repository.deleteById(id);
 		return true;
 	}

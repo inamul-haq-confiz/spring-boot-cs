@@ -17,6 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import com.test.demo.constants.Messages;
 import com.test.demo.dtos.ProductDto;
+import com.test.demo.exceptions.ItemNotFoundException;
 import com.test.demo.model.Product;
 import com.test.demo.repository.ProductRepository;
 import com.test.demo.services.ProductService;
@@ -67,7 +68,7 @@ public class ProductServiceTest {
     	when(repository.findById("1")).thenReturn(null);
 
         // Execute the service call
-        var exception = assertThrows(RuntimeException.class, () -> {
+        var exception = assertThrows(ItemNotFoundException.class, () -> {
             service.getProduct("1");
             });
         // Assert the response
@@ -113,8 +114,8 @@ public class ProductServiceTest {
     @DisplayName("Test deleteById Success")
     void testDeleteById() {   
         // Execute the service call
-    	var product =  Optional.of(new Product("1", "title", "desc","image" ,"20"));
-    	when(repository.findById("1")).thenReturn(product);
+    	//var product =  Optional.of(new Product("1", "title", "desc","image" ,"20"));
+    	when(repository.existsById("1")).thenReturn(true);
         var response = service.deleteProduct("1");
         // Assert the response
         Assertions.assertTrue(response, "No product found");
@@ -123,7 +124,7 @@ public class ProductServiceTest {
     @Test
     @DisplayName("Test deleteById Invalid")
     void testDeleteByIdInvalid() {   
-    	when(repository.findById("1")).thenReturn(null);
+    	when(repository.existsById("1")).thenReturn(false);
         // Execute the service call
         var exception = assertThrows(RuntimeException.class, () -> service.deleteProduct("1"));
         // Assert the response
