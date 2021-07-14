@@ -72,7 +72,7 @@ class ProductControllerTest {
 
         // Assert the response
         Assertions.assertNotNull(response, "Unable to insert Product");
-        Assertions.assertEquals(response.getId(), "1");
+        Assertions.assertEquals("1", response.getId());
 
     }
     @Test
@@ -89,7 +89,7 @@ class ProductControllerTest {
 
         // Assert the response
         Assertions.assertNotNull(response, "Unable to update Product");
-        Assertions.assertEquals(response.getId(), "1");
+        Assertions.assertEquals("1", response.getId());
     }
     
     @Test
