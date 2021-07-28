@@ -38,7 +38,10 @@ steps:
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
 #- task: SonarCloudAnalyze@1
-
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
