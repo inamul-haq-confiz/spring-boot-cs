@@ -10,17 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'test-user-09'
-    scannerMode: 'Other'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner,
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.projectKey=Test-User-09_spring-boot-cs
-      sonar.projectName=spring-boot-cs
+#- task: SonarCloudPrepare@1
+ # inputs:
+    # SonarCloud: 'SonarCloud'
+    # organization: 'test-user-09'
+    # scannerMode: 'Other'
+    # extraProperties: |
+    #   # Additional properties that will be passed to the scanner,
+    #   # Put one key=value per line, example:
+    #   # sonar.exclusions=**/*.bin
+    #   sonar.projectKey=Test-User-09_spring-boot-cs
+    #   sonar.projectName=spring-boot-cs
 - task: Maven@3 
   inputs:
     mavenPomFile: 'pom.xml'
@@ -42,12 +42,13 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'build'
-    publishLocation: 'Container'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure subscription 1(3492ff1b-3b91-4beb-bb22-fe498240d8bc)'
-    appType: 'webAppLinux'
-    WebAppName: 'spring-boot-cs'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'JAVA|11-java11'
+    publishLocation: 'FilePath'
+
+- #task: AzureRmWebAppDeployment@4
+  #inputs:
+  #  ConnectionType: 'AzureRM'
+   # azureSubscription: 'Azure subscription 1(3492ff1b-3b91-4beb-bb22-fe498240d8bc)'
+    #appType: 'webAppLinux'
+    #WebAppName: 'spring-boot-cs'
+   # packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+   # RuntimeStack: 'JAVA|11-java11'
