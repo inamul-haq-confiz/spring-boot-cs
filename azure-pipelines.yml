@@ -38,3 +38,11 @@ steps:
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
 #- task: SonarCloudAnalyze@1
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(3492ff1b-3b91-4beb-bb22-fe498240d8bc)'
+    appType: 'webAppLinux'
+    WebAppName: 'spring-boot-cs'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'JAVA|11-java11'
