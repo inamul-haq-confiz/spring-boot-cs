@@ -12,7 +12,7 @@ pool:
 steps:
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'SonarCloud Service'
+    SonarCloud: 'SonarCloud'
     organization: 'test-user-09'
     scannerMode: 'Other'
     extraProperties: |
