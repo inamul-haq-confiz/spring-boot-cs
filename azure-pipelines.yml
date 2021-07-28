@@ -38,11 +38,14 @@ steps:
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
 #- task: SonarCloudAnalyze@1
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'build'
-    publishLocation: 'FilePath'
+  condition: succeededOrFailed()
+
+    
 
  #-task: AzureRmWebAppDeployment@4
   #inputs:
