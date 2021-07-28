@@ -10,17 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-#- task: SonarCloudPrepare@1
- # inputs:
-    # SonarCloud: 'SonarCloud'
-    # organization: 'test-user-09'
-    # scannerMode: 'Other'
-    # extraProperties: |
-    #   # Additional properties that will be passed to the scanner,
-    #   # Put one key=value per line, example:
-    #   # sonar.exclusions=**/*.bin
-    #   sonar.projectKey=Test-User-09_spring-boot-cs
-    #   sonar.projectName=spring-boot-cs
+- task: SonarCloudPrepare@1
+  inputs:
+   SonarCloud: 'SonarCloud'
+   organization: 'test-user-09'
+   scannerMode: 'Other'
+   extraProperties: |
+     # Additional properties that will be passed to the scanner,
+     # Put one key=value per line, example:
+     # sonar.exclusions=**/*.bin
+     sonar.projectKey=Test-User-09_spring-boot-cs
+     sonar.projectName=spring-boot-cs
 - task: Maven@3 
   inputs:
     mavenPomFile: 'pom.xml'
@@ -29,13 +29,11 @@ steps:
     jdkVersionOption: '1.11'
     options: '-e'
     jdkArchitectureOption: 'x64'
-    #publishJUnitResults: true
-    #codeCoverageToolOption: 'JaCoCo'
-    #sonarQubeRunAnalysis: true
-    #isJacocoCoverageReportXML: true
-    #sqMavenPluginVersionChoice: 'latest'
-    #sonarQubeRunAnalysis: true
-    #sqMavenPluginVersionChoice: 'latest'
+    publishJUnitResults: true
+    codeCoverageToolOption: 'JaCoCo'
+    sonarQubeRunAnalysis: true
+    isJacocoCoverageReportXML: true
+    sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
 #- task: SonarCloudAnalyze@1
 - task: CopyFiles@2
