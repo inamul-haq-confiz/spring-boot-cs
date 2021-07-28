@@ -29,11 +29,11 @@ steps:
     jdkVersionOption: '1.11'
     options: '-e'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    codeCoverageToolOption: 'JaCoCo'
+    #publishJUnitResults: true
+    #codeCoverageToolOption: 'JaCoCo'
     #sonarQubeRunAnalysis: true
-    isJacocoCoverageReportXML: true
-    sqMavenPluginVersionChoice: 'latest'
+    #isJacocoCoverageReportXML: true
+    #sqMavenPluginVersionChoice: 'latest'
     #sonarQubeRunAnalysis: true
     #sqMavenPluginVersionChoice: 'latest'
     goals: 'package'
@@ -43,6 +43,8 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'build'
+    publishLocation: 'FilePath'
+    TargetPath: '$(Build.ArtifactStagingDirectory)'
   condition: succeededOrFailed()
 
     
