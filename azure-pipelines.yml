@@ -31,7 +31,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     codeCoverageToolOption: 'JaCoCo'
-    sonarQubeRunAnalysis: true
+    #sonarQubeRunAnalysis: true
     isJacocoCoverageReportXML: true
     sqMavenPluginVersionChoice: 'latest'
     #sonarQubeRunAnalysis: true
