@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+		http.cors().and().csrf().disable().addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests().antMatchers("/api/accounts/login",
 						"/api/accounts/register",
 						"/api/token",

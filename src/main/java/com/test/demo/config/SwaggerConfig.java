@@ -37,7 +37,7 @@ public class SwaggerConfig {
         .termsOfServiceUrl("http://confiz.com")
         .contact(new Contact("Inam ul Haq", "http://confiz.com", "inamul.haq@confiz.com"))
         .license("Test License")
-        .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0").version("1.0").build();
+        .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0").version("2.0").build();
        
     }
     private ApiKey apiKey() {
