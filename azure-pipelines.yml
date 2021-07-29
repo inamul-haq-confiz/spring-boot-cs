@@ -46,3 +46,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'build'
   condition: succeededOrFailed()
+
