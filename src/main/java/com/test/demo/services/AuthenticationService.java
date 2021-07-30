@@ -44,7 +44,7 @@ public class AuthenticationService{
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
 		var issuedAt = new Date(System.currentTimeMillis());
-		var expireAt = new Date(System.currentTimeMillis() + 600000);
+		var expireAt = new Date(System.currentTimeMillis() + 6000000);
 		var token = Jwts
 				.builder()
 				.setId("softtekJWT")
